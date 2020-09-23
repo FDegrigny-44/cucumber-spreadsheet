@@ -9,6 +9,9 @@ import javax.script.ScriptException;
 
 public class SpreadsheetCell {
 	
+	public static final String FORMULA_PREFIX = "=";
+	public static final String ERR_DISPLAY_CODE = "#ERR";
+
 	public enum CellType {
 		TEXT, NUMBER, FORMULA
 	}
@@ -66,7 +69,7 @@ public class SpreadsheetCell {
 			Object computed = jsEngine.eval(script);
 			result = computed.toString();
 		} catch (ScriptException e) {
-			result = "#ERR";
+			result = ERR_DISPLAY_CODE;
 		}
 		return result;
 	}
@@ -74,15 +77,15 @@ public class SpreadsheetCell {
 	//****************** Private part: ******************************
 
 	private boolean isContentFormula() {
-		return this.textValue != null && this.textValue.startsWith("=");
+		return this.textValue != null && this.textValue.startsWith(FORMULA_PREFIX);
 	}
 
 	private String formulaToScript(final String formula) {
-		if (formula == null || formula.length() <= 1) {
+		if (formula == null || formula.length() <= FORMULA_PREFIX.length()) {
 			return "";
 		} else {
 			// trim the leading '=' from the input formula
-			return formula.substring(1);
+			return formula.substring(FORMULA_PREFIX.length());
 		}
 	}
 	
