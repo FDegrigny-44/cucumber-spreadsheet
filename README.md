@@ -32,7 +32,7 @@ Generate pretty HTML report (in /target/cucumber-reports/)
 ## BDD rounds sequence for this practice
 We are about to implement our 3 firsts Feature using classic TDD cycle.
 
-![BDD work cycle](BDD-work-cyle.png)
+![BDD work cycle](BDD-work-cycle.png)
 
 - Round 1 : our 1st Feature is a basic spreadsheet cell with text (Git tag = *round-1-start*)
 - Round 2 : a 2nd Feature to improve our cell with numbers (Git tag = *round-2-start*)
