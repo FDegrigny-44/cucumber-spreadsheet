@@ -40,4 +40,10 @@ public class CellStepDefinitions {
 		String actualNumber = currentCell.getNumberValue();
 		Assert.assertEquals("The cell number vlaue should be", expectedNumber, actualNumber);
 	}
+	
+	@Then("The result should be {string}")
+	public void the_result_should_be(String expectedResult) {
+		String actualResult = currentCell.getResult();
+		Assert.assertEquals("Cell result", expectedResult, actualResult);
+	}
 }

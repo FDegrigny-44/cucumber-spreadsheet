@@ -41,6 +41,13 @@ public class SpreadsheetCell {
 			return getValue();
 		}
 	}
+	
+	public String getResult() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//****************** Private part: ******************************
 
 	private boolean isContentNumber() {
 		boolean isOk;
@@ -52,4 +59,6 @@ public class SpreadsheetCell {
 		}
 		return isOk;
 	}
+
+
 }
