@@ -4,6 +4,10 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 public class SpreadsheetCell {
+	
+	public enum CellType {
+		TEXT, NUMBER
+	}
 
 	/**
 	 * Store the user input
@@ -22,16 +26,16 @@ public class SpreadsheetCell {
 		return this.textValue;
 	}
 
-	public String getCellType() {
+	public CellType getCellType() {
 		if (isContentNumber()) {
-			return "NUMBER";
+			return CellType.NUMBER;
 		} else {
-			return "TEXT";
+			return CellType.TEXT;
 		}
 	}
 
 	public String getNumberValue() {
-		if( getCellType() != "NUMBER") {
+		if( getCellType() != CellType.NUMBER) {
 			return null;
 		} else {
 			return getValue();

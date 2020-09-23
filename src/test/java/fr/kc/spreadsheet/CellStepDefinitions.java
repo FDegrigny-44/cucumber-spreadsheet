@@ -31,7 +31,7 @@ public class CellStepDefinitions {
 
 	@Then("The cell type should be {string}")
 	public void the_cell_type_should_be(String expectedType) {
-		String actualType = currentCell.getCellType();
+		String actualType = currentCell.getCellType().name();
 		Assert.assertEquals("The cell type should be", expectedType, actualType);
 	}
 	
