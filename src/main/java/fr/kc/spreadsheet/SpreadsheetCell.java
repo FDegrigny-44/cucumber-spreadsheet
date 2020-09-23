@@ -56,7 +56,7 @@ public class SpreadsheetCell {
 		if( getCellType() != CellType.NUMBER) {
 			return null;
 		} else {
-			return getValue();
+			return evalMath(getValue());
 		}
 	}
 	
@@ -66,9 +66,13 @@ public class SpreadsheetCell {
 	
 	private String evalFormula(final String formula) {
 		String script = formulaToScript(formula);
+		return evalMath(script);
+	}
+	
+	private String evalMath(final String math) {
 		String result = "";
 		try {
-			Object computed = jsEngine.eval(script);
+			Object computed = jsEngine.eval(math);
 			result = computed.toString();
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
