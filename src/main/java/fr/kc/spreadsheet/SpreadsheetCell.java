@@ -17,6 +17,7 @@ public class SpreadsheetCell {
 	}
 	
 	private static final String INVALID_FORMULA_MSG = "Invalid formula:";
+	private static final String DIVISION_BY_0_MSG = "Division by 0";
 
 	/**
 	 * Store the user input
@@ -86,7 +87,7 @@ public class SpreadsheetCell {
 				result = computed.toString();
 			} else {
 				result = ERR_DISPLAY_CODE;
-				this.lastError = new FormulaException("Division by 0");
+				this.lastError = new FormulaException(DIVISION_BY_0_MSG);
 			}
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
