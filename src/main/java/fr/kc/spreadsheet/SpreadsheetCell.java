@@ -23,4 +23,8 @@ public class SpreadsheetCell {
 		return "TEXT";
 	}
 
+	public String getNumberValue() {
+		return null;
+	}
+
 }

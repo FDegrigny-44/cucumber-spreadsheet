@@ -34,4 +34,10 @@ public class CellStepDefinitions {
 		String actualType = currentCell.getCellType();
 		Assert.assertEquals("The cell type should be", expectedType, actualType);
 	}
+	
+	@Then("The cell number value should be {string}")
+	public void the_cell_number_value_should_be(String expectedNumber) {
+		String actualNumber = currentCell.getNumberValue();
+		Assert.assertEquals("The cell number vlaue should be", expectedNumber, actualNumber);
+	}
 }
