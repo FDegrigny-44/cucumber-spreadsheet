@@ -13,7 +13,7 @@ public class SpreadsheetCell {
 	public static final String ERR_DISPLAY_CODE = "#ERR";
 
 	public enum CellType {
-		TEXT, NUMBER, FORMULA
+		TEXT, NUMBER, FORMULA, EMPTY
 	}
 
 	/**
@@ -41,7 +41,9 @@ public class SpreadsheetCell {
 	}
 
 	public CellType getCellType() {
-		if( isContentFormula() ) {
+		if( this.textValue == null ) {
+			return CellType.EMPTY;
+		} else if( isContentFormula() ) {
 			return CellType.FORMULA;
 		} else if (isContentNumber()) {
 			return CellType.NUMBER;
