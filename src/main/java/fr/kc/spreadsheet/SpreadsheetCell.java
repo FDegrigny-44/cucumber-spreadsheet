@@ -33,7 +33,7 @@ public class SpreadsheetCell {
 	}
 
 	public void setValue(final String newValue) {
-		this.textValue = newValue;
+		this.textValue = newValue == null ? null : newValue.trim();
 	}
 
 	public String getValue() {
