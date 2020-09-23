@@ -8,7 +8,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class SpreadsheetCell {
-	
+
 	public static final String FORMULA_PREFIX = "=";
 	public static final String ERR_DISPLAY_CODE = "#ERR";
 
@@ -20,6 +20,11 @@ public class SpreadsheetCell {
 	 * Store the user input
 	 */
 	private String textValue;
+
+	/**
+	 * Store the last exception occurred, if any
+	 */
+	private Exception lastError;
 
 	/**
 	 * Inner Javascript engine to compute formulas
@@ -41,9 +46,9 @@ public class SpreadsheetCell {
 	}
 
 	public CellType getCellType() {
-		if( this.textValue == null ) {
+		if (this.textValue == null) {
 			return CellType.EMPTY;
-		} else if( isContentFormula() ) {
+		} else if (isContentFormula()) {
 			return CellType.FORMULA;
 		} else if (isContentNumber()) {
 			return CellType.NUMBER;
@@ -53,22 +58,22 @@ public class SpreadsheetCell {
 	}
 
 	public String getNumberValue() {
-		if( getCellType() != CellType.NUMBER) {
+		if (getCellType() != CellType.NUMBER) {
 			return null;
 		} else {
 			return evalMath(getValue());
 		}
 	}
-	
+
 	public String getResult() {
 		return evalFormula(getValue());
 	}
-	
+
 	private String evalFormula(final String formula) {
 		String script = formulaToScript(formula);
 		return evalMath(script);
 	}
-	
+
 	private String evalMath(final String math) {
 		String result = "";
 		try {
@@ -80,16 +85,24 @@ public class SpreadsheetCell {
 			}
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
+			this.lastError = e;
 		}
 		return result;
 	}
 
-	public String getLastErrorMessage() {
-		// TODO Auto-generated method stub
-		return null;
+	public Exception getLastError() {
+		return this.lastError;
 	}
 
-	//****************** Private part: ******************************
+	public String getLastErrorMessage() {
+		if (getLastError() == null) {
+			return null;
+		} else {
+			return "Invalid formula: " + getLastError().getMessage();
+		}
+	}
+
+	// ****************** Private part: ******************************
 
 	private boolean isContentFormula() {
 		return this.textValue != null && this.textValue.startsWith(FORMULA_PREFIX);
@@ -103,7 +116,7 @@ public class SpreadsheetCell {
 			return formula.substring(FORMULA_PREFIX.length());
 		}
 	}
-	
+
 	private boolean isContentNumber() {
 		boolean isOk;
 		try {
