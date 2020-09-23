@@ -34,7 +34,7 @@ We are about to implement our 3 firsts Feature using classic TDD cycle.
 
 ![BDD work cycle](BDD-work-cycle.png)
 
-- Round 1 : our 1st Feature is a basic spreadsheet cell with text (Git tag = *round-1-start*)
+- Round 1 : our 1st Feature is a basic spreadsheet cell with only text (Git tag = *round-1-start*)
 - Round 2 : a 2nd Feature to improve our cell with numbers (Git tag = *round-2-start*)
 - Round 3 : a 3rd Feature to introduce formulas (Git tag = *round-3-start*)
 - Round 4 : improve our code with to limits tests and error cases (Git tag = *round-4-start*)
@@ -47,13 +47,13 @@ We are about to implement our 3 firsts Feature using classic TDD cycle.
 ## Quick start
 1. Git clone
 
-    > git clone https://github.com/FDegrigny-44/cucumber-spreadsheet.git
+        > git clone https://github.com/FDegrigny-44/cucumber-spreadsheet.git
 
 2. fetch all the origin tags
 
-    > get fetch --all --tags
+        > get fetch --all --tags
 
 3. Checkout the first tag to start
 
-    > git checkout tags/round-1-start -b master
+        > git checkout tags/round-1-start -b master
 
