@@ -17,7 +17,7 @@ Feature: Spreadsheet Cell Text
     When  The cell is setted with value: "Some text with accents and symbols àéèùüû $§!#&"
     Then  The cell type should be "TEXT"
     And   The cell value should be "Some text with accents and symbols àéèùüû $§!#&"
-    
+
   Scenario: Empty cell type
     Given An empty table cell
     Then  The cell type should be "EMPTY"

@@ -43,3 +43,11 @@ Feature: Spreadsheet Cell Formulas
     Then  The result should be "#ERR"
     And   the last error message should starts with "Invalid formula"
     And   the last error message should contains '"A" is not defined'
+
+  @error
+  Scenario: Invalid formula - division by 0
+    Given An empty table cell
+    When  The cell is setted with value: "= 12 / 0"
+    Then  The result should be "#ERR"
+    And   the last error message should starts with "Invalid formula"
+    And   the last error message should contains "Division by 0"
