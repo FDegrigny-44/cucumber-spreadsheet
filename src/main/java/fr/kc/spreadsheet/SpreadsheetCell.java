@@ -12,15 +12,15 @@ public class SpreadsheetCell {
 	}
 
 	public void setValue(final String newValue) {
-
+		this.textValue = newValue;
 	}
 
 	public String getValue() {
-		return null;
+		return this.textValue;
 	}
 
 	public String getCellType() {
-		return null;
+		return "TEXT";
 	}
 
 }
