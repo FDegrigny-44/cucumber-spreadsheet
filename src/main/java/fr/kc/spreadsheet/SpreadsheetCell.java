@@ -73,7 +73,11 @@ public class SpreadsheetCell {
 		String result = "";
 		try {
 			Object computed = jsEngine.eval(math);
-			result = computed.toString();
+			if (computed == null) {
+				result = "";
+			} else {
+				result = computed.toString();
+			}
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
 		}
