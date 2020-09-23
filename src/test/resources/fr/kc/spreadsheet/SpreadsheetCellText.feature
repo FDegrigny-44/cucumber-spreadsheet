@@ -21,4 +21,3 @@ Feature: Spreadsheet Cell Text
   Scenario: Empty cell type
     Given An empty table cell
     Then  The cell type should be "EMPTY"
-

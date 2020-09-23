@@ -46,4 +46,19 @@ public class CellStepDefinitions {
 		String actualResult = currentCell.getResult();
 		Assert.assertEquals("Cell result", expectedResult, actualResult);
 	}
+	
+	@Then("the last error message should contains {string}")
+	public void the_last_error_message_should_contains(String details) {
+		String errMessage = currentCell.getLastErrorMessage();
+		Assert.assertNotNull("Last error message should not be null", errMessage);
+		Assert.assertTrue("Last error message: '" + errMessage + "' doesn't contains '" + details + "'", errMessage.contains(details));
+	}
+	
+	@Then("the last error message should starts with {string}")
+	public void the_last_error_message_should_starts_with(String prefix) {
+		String errMessage = currentCell.getLastErrorMessage();
+		Assert.assertNotNull("Last error message should not be null", errMessage);
+		Assert.assertTrue("Last error message: '" + errMessage + "' doesn't starts with '" + prefix + "'", errMessage.startsWith(prefix));
+	}
+
 }

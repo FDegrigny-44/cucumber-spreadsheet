@@ -84,6 +84,11 @@ public class SpreadsheetCell {
 		return result;
 	}
 
+	public String getLastErrorMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//****************** Private part: ******************************
 
 	private boolean isContentFormula() {
@@ -109,6 +114,5 @@ public class SpreadsheetCell {
 		}
 		return isOk;
 	}
-
 
 }

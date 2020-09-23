@@ -24,3 +24,22 @@ Feature: Spreadsheet Cell Formulas
     | "=1 / 3"          | "0.3333333333333333" |
     | "= 1.22 - 12.31"  | "-11.09"             |
     | "= Math.PI     "  | "3.141592653589793"  |
+
+  @limit
+  Scenario: Eval empty Cell
+    Given An empty table cell
+    Then  The result should be ""
+
+  @limit
+  Scenario: Eval empty formula
+    Given An empty table cell
+    When  The cell is setted with value: ""
+    Then  The result should be ""
+
+  @error
+  Scenario: Invalid formula - bad reference
+    Given An empty table cell
+    When  The cell is setted with value: "= 1 + A"
+    Then  The result should be "#ERR"
+    And   the last error message should starts with "Invalid formula"
+    And   the last error message should contains '"A" is not defined'
