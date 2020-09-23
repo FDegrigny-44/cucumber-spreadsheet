@@ -24,3 +24,14 @@ Feature: Spreadsheet Cell Numbers
     Then  The cell type should be "NUMBER"
     And   The cell value should be "2E+2"
     And   The cell number value should be "200"
+
+  @limit
+  Scenario: Eval empty Cell
+    Given An empty table cell
+    Then  The result should be ""
+
+  @limit
+  Scenario: Eval empty formula
+    Given An empty table cell
+    When  The cell is setted with value: ""
+    Then  The result should be ""
