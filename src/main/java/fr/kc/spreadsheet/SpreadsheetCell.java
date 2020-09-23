@@ -82,8 +82,11 @@ public class SpreadsheetCell {
 			Object computed = jsEngine.eval(math);
 			if (computed == null) {
 				result = "";
-			} else {
+			} else if (isFiniteNumber(computed)) {
 				result = computed.toString();
+			} else {
+				result = ERR_DISPLAY_CODE;
+				this.lastError = new FormulaException("Division by 0");
 			}
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
@@ -110,15 +113,6 @@ public class SpreadsheetCell {
 		return this.textValue != null && this.textValue.startsWith(FORMULA_PREFIX);
 	}
 
-	private String formulaToScript(final String formula) {
-		if (formula == null || formula.length() <= FORMULA_PREFIX.length()) {
-			return "";
-		} else {
-			// trim the leading '=' from the input formula
-			return formula.substring(FORMULA_PREFIX.length());
-		}
-	}
-
 	private boolean isContentNumber() {
 		boolean isOk;
 		try {
@@ -128,6 +122,24 @@ public class SpreadsheetCell {
 			isOk = false;
 		}
 		return isOk;
+	}
+
+	private static boolean isFiniteNumber(Object obj) {
+		if (!(obj instanceof Number)) {
+			return false;
+		} else {
+			Number number = ((Number) obj);
+			return Double.isFinite(number.doubleValue());
+		}
+	}
+
+	private static String formulaToScript(final String formula) {
+		if (formula == null || formula.length() <= FORMULA_PREFIX.length()) {
+			return "";
+		} else {
+			// trim the leading '=' from the input formula
+			return formula.substring(FORMULA_PREFIX.length());
+		}
 	}
 
 }
