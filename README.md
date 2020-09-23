@@ -30,7 +30,7 @@ Generate pretty HTML report (in /target/cucumber-reports/)
     > mvn verify
 
 ## BDD rounds sequence for this practice
-We are about to implement our 3 firsts Feature using classic TDD cycle.
+We are about to implement our 3 first Features using classic TDD cycle.
 
 ![BDD work cycle](BDD-work-cycle.png)
 
