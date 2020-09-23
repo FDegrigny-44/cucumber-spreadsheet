@@ -17,3 +17,10 @@ Feature: Spreadsheet Cell Numbers
     When  The cell is setted with value: "13.07"
     Then  The cell type should be "NUMBER"
     And   The cell number value should be "13.07"
+
+  Scenario: Scientific notation
+    Given An empty table cell
+    When  The cell is setted with value: "2E+2"
+    Then  The cell type should be "NUMBER"
+    And   The cell value should be "2E+2"
+    And   The cell number value should be "200"
