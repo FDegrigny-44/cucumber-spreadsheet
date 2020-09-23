@@ -3,10 +3,14 @@ package fr.kc.spreadsheet;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 public class SpreadsheetCell {
 	
 	public enum CellType {
-		TEXT, NUMBER
+		TEXT, NUMBER, FORMULA
 	}
 
 	/**
@@ -14,8 +18,15 @@ public class SpreadsheetCell {
 	 */
 	private String textValue;
 
+	/**
+	 * Inner Javascript engine to compute formulas
+	 */
+	private ScriptEngine jsEngine;
+
 	public SpreadsheetCell() {
 		this.textValue = null;
+		// init the inner Javascript engine
+		this.jsEngine = new ScriptEngineManager().getEngineByName("javascript");
 	}
 
 	public void setValue(final String newValue) {
@@ -27,7 +38,9 @@ public class SpreadsheetCell {
 	}
 
 	public CellType getCellType() {
-		if (isContentNumber()) {
+		if( isContentFormula() ) {
+			return CellType.FORMULA;
+		} else if (isContentNumber()) {
 			return CellType.NUMBER;
 		} else {
 			return CellType.TEXT;
@@ -43,12 +56,36 @@ public class SpreadsheetCell {
 	}
 	
 	public String getResult() {
-		// TODO Auto-generated method stub
-		return null;
+		return evalFormula(getValue());
+	}
+	
+	private String evalFormula(final String formula) {
+		String script = formulaToScript(formula);
+		String result = "";
+		try {
+			Object computed = jsEngine.eval(script);
+			result = computed.toString();
+		} catch (ScriptException e) {
+			result = "#ERR";
+		}
+		return result;
 	}
 
 	//****************** Private part: ******************************
 
+	private boolean isContentFormula() {
+		return this.textValue != null && this.textValue.startsWith("=");
+	}
+
+	private String formulaToScript(final String formula) {
+		if (formula == null || formula.length() <= 1) {
+			return "";
+		} else {
+			// trim the leading '=' from the input formula
+			return formula.substring(1);
+		}
+	}
+	
 	private boolean isContentNumber() {
 		boolean isOk;
 		try {
