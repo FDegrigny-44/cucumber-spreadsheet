@@ -15,6 +15,8 @@ public class SpreadsheetCell {
 	public enum CellType {
 		TEXT, NUMBER, FORMULA, EMPTY
 	}
+	
+	private static final String INVALID_FORMULA_MSG = "Invalid formula:";
 
 	/**
 	 * Store the user input
@@ -24,7 +26,7 @@ public class SpreadsheetCell {
 	/**
 	 * Store the last exception occurred, if any
 	 */
-	private Exception lastError;
+	private FormulaException lastError;
 
 	/**
 	 * Inner Javascript engine to compute formulas
@@ -85,12 +87,12 @@ public class SpreadsheetCell {
 			}
 		} catch (ScriptException e) {
 			result = ERR_DISPLAY_CODE;
-			this.lastError = e;
+			this.lastError = new FormulaException(e.getMessage(), e);
 		}
 		return result;
 	}
 
-	public Exception getLastError() {
+	public FormulaException getLastError() {
 		return this.lastError;
 	}
 
@@ -98,7 +100,7 @@ public class SpreadsheetCell {
 		if (getLastError() == null) {
 			return null;
 		} else {
-			return "Invalid formula: " + getLastError().getMessage();
+			return INVALID_FORMULA_MSG + " " + getLastError().getMessage();
 		}
 	}
 
