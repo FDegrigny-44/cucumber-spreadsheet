@@ -7,7 +7,6 @@ public class SpreadsheetCell {
 	 */
 	private String textValue;
 
-
 	public SpreadsheetCell() {
 		this.textValue = null;
 	}
@@ -17,6 +16,10 @@ public class SpreadsheetCell {
 	}
 
 	public String getValue() {
+		return null;
+	}
+
+	public String getCellType() {
 		return null;
 	}
 
